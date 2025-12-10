@@ -1,0 +1,114 @@
+{
+    "common": {
+        "login": "Login",
+        "signup": "Sign Up",
+        "logout": "Logout",
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "pricing": "Pricing",
+        "explore": "Explore",
+        "imageToVideo": "Image to Video",
+        "history": "History",
+        "getStarted": "Get Started",
+        "learnMore": "Learn More",
+        "contactUs": "Contact Us"
+    },
+    "navbar": {
+        "brand": "VTO Studio"
+    },
+    "hero": {
+        "badge": "Powered By Advanced AI Technology",
+        "title": "AI Virtual Try-On",
+        "titleHighlight": "Studio",
+        "subtitle": "Try on clothes, shoes, jewelry & accessories instantly. Upload your photo and any item to see yourself wearing it in seconds.",
+        "cta": "Start Creating",
+        "watchDemo": "Watch Demo"
+    },
+    "pricing": {
+        "title": "Simple, Transparent Pricing",
+        "subtitle": "Start free, upgrade when you're ready. No hidden fees, cancel anytime.",
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "discount": "-20%",
+        "perMonth": "/month",
+        "mostPopular": "Most Popular",
+        "contactSales": "Contact Sales",
+        "needMore": "Need more?",
+        "customPricing": "Contact us for custom enterprise pricing",
+        "plans": {
+            "free": {
+                "name": "Free",
+                "description": "Perfect for trying out VTO Studio",
+                "credits": "10 free try-ons",
+                "cta": "Start Free"
+            },
+            "pro": {
+                "name": "Pro",
+                "description": "For creators and small businesses",
+                "credits": "200 credits/month",
+                "cta": "Get Pro"
+            },
+            "business": {
+                "name": "Business",
+                "description": "For teams and growing brands",
+                "credits": "1,000 credits/month",
+                "cta": "Get Business"
+            }
+        },
+        "features": {
+            "tryOnCredits": "Try-On Credits",
+            "standardResolution": "Standard Resolution",
+            "basicSupport": "Basic Support",
+            "personalUse": "Personal Use Only",
+            "highResolution": "High Resolution (4K)",
+            "priorityProcessing": "Priority Processing",
+            "commercialLicense": "Commercial License",
+            "noWatermarks": "No Watermarks",
+            "emailSupport": "Email Support",
+            "ultraHD": "Ultra HD Resolution",
+            "apiAccess": "API Access",
+            "batchProcessing": "Batch Processing",
+            "teamCollab": "Team Collaboration",
+            "prioritySupport": "Priority Support",
+            "analytics": "Analytics Dashboard"
+        }
+    },
+    "contact": {
+        "tag": "Get in Touch",
+        "title": "Ready to",
+        "titleHighlight": "Transform",
+        "titleEnd": "Your Fashion Business?",
+        "subtitle": "Whether you're a small boutique or enterprise retailer, we'd love to hear from you. Get a personalized demo or discuss custom solutions for your needs.",
+        "benefits": {
+            "demo": "Free personalized demo",
+            "pricing": "Custom pricing for your needs",
+            "support": "Technical integration support",
+            "response": "Response within 24 hours"
+        },
+        "form": {
+            "title": "Send us a message",
+            "fullName": "Full Name",
+            "email": "Email Address",
+            "message": "Message",
+            "messagePlaceholder": "Tell us about your project or ask us anything...",
+            "submit": "Send Message",
+            "sending": "Sending..."
+        }
+    },
+    "testimonials": {
+        "tag": "Trusted by 500+ Brands",
+        "title": "Loved by",
+        "titleHighlight": "Fashion Leaders",
+        "subtitle": "See what industry professionals are saying about VTO Studio."
+    },
+    "language": {
+        "english": "English",
+        "spanish": "Español",
+        "french": "Français",
+        "german": "Deutsch",
+        "chinese": "中文",
+        "japanese": "日本語",
+        "korean": "한국어",
+        "arabic": "العربية"
+    }
+}

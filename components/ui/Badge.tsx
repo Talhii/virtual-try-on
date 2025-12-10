@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -14,7 +14,7 @@ export function Badge({
     size = 'md',
     children,
     ...props
-}: BadgeProps) {
+}: Readonly<BadgeProps>) {
     const variants = {
         default: 'bg-white/10 text-white/70 border-white/10',
         success: 'bg-green-500/20 text-green-400 border-green-500/30',
@@ -50,7 +50,7 @@ interface TagProps {
     children: React.ReactNode;
 }
 
-export function Tag({ className, children }: TagProps) {
+export function Tag({ className, children }: Readonly<TagProps>) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 10 }}

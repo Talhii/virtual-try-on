@@ -2,166 +2,165 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus, HelpCircle } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 
 const FAQS = [
   {
-    category: 'General',
-    questions: [
-      {
-        question: "What is VTO Studio?",
-        answer: "VTO Studio is an AI-powered virtual try-on platform that allows you to visualize how any clothing item looks on any person. Simply upload a photo of a person and a garment, and our AI will generate a photorealistic image of them wearing that outfit in under a second."
-      },
-      {
-        question: "How accurate is the virtual try-on?",
-        answer: "Our AI achieves a 98% accuracy rate in fit, fabric drape, and lighting simulation. We use advanced physics engines combined with generative AI to ensure clothing behaves realistically on any body type. The technology has been trained on millions of fashion images to understand fabric properties and body mechanics."
-      },
-      {
-        question: "Do I need professional photos?",
-        answer: "No! While higher quality inputs yield better results, our AI works great with standard smartphone photos. Just ensure good lighting, a clear view of the subject, and minimal occlusion (nothing blocking the body). We recommend a resolution of at least 720p for best results."
-      },
-    ]
+    question: "What is VTO Studio?",
+    answer: "VTO Studio is an AI-powered virtual try-on platform that allows you to visualize how any clothing item looks on any person. Simply upload a photo of a person and a garment, and our AI will generate a photorealistic image of them wearing that outfit in under a second."
   },
   {
-    category: 'Technical',
-    questions: [
-      {
-        question: "Is there an API available?",
-        answer: "Yes! We offer a comprehensive REST API for Business and Enterprise customers who want to integrate VTO technology directly into their applications, websites, or workflows. The API supports batch processing, webhooks, and comes with detailed documentation and SDKs for popular programming languages."
-      },
-      {
-        question: "What file formats are supported?",
-        answer: "We support all major image formats including JPEG, PNG, WebP, and HEIC. For output, you can choose between JPEG (optimized for web), PNG (with transparency support), or WebP (best compression). Maximum input size is 20MB per image."
-      },
-      {
-        question: "How long does processing take?",
-        answer: "Most try-ons complete in under 1 second. Complex images with intricate patterns or unusual poses may take up to 3 seconds. Batch processing via API typically processes 100 images per minute. We offer priority processing for Pro and higher plans."
-      },
-    ]
+    question: "How accurate is the virtual try-on?",
+    answer: "Our AI achieves a 98% accuracy rate in fit, fabric drape, and lighting simulation. We use advanced physics engines combined with generative AI to ensure clothing behaves realistically on any body type."
   },
   {
-    category: 'Privacy & Security',
-    questions: [
-      {
-        question: "What happens to my uploaded photos?",
-        answer: "We take privacy seriously. Your photos are processed securely using end-to-end encryption and are automatically deleted from our servers within 24 hours unless you choose to save them to your private gallery. We are SOC 2 Type II certified and GDPR compliant."
-      },
-      {
-        question: "Are my images used for AI training?",
-        answer: "No, absolutely not. Your uploaded images are never used to train our AI models. We have strict data policies that prohibit the use of customer data for model training. Your content remains your property at all times."
-      },
-    ]
+    question: "Do I need professional photos?",
+    answer: "No! While higher quality inputs yield better results, our AI works great with standard smartphone photos. Just ensure good lighting, a clear view of the subject, and minimal occlusion."
   },
   {
-    category: 'Billing',
-    questions: [
-      {
-        question: "Can I cancel my subscription anytime?",
-        answer: "Yes, you can cancel your subscription at any time from your account settings. Your access will continue until the end of your current billing period. No cancellation fees or penalties apply. Unused credits do not roll over but remain available until your subscription ends."
-      },
-      {
-        question: "What payment methods do you accept?",
-        answer: "We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and bank transfers for Enterprise plans. All payments are processed securely through Stripe. We also offer invoicing for annual Business and Enterprise plans."
-      },
-    ]
+    question: "Is there an API available?",
+    answer: "Yes! We offer a comprehensive REST API for Business and Enterprise customers who want to integrate VTO technology directly into their applications, websites, or workflows."
+  },
+  {
+    question: "What file formats are supported?",
+    answer: "We support all major image formats including JPEG, PNG, WebP, and HEIC. For output, you can choose between JPEG, PNG, or WebP. Maximum input size is 20MB per image."
+  },
+  {
+    question: "What happens to my uploaded photos?",
+    answer: "We take privacy seriously. Your photos are processed securely using end-to-end encryption and are automatically deleted from our servers within 24 hours unless you choose to save them."
+  },
+  {
+    question: "Can I cancel my subscription anytime?",
+    answer: "Yes, you can cancel your subscription at any time from your account settings. Your access will continue until the end of your current billing period. No cancellation fees apply."
   },
 ];
 
-export default function FAQ() {
-  const [openItems, setOpenItems] = useState<string[]>(['General-0']);
+export default function Faq() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const toggleItem = (id: string) => {
-    setOpenItems(prev =>
-      prev.includes(id)
-        ? prev.filter(item => item !== id)
-        : [...prev, id]
-    );
+  const toggleItem = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section id="faq" className="section-padding relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
-
-      <div className="container-custom relative z-10">
+    <section id="faq" className="py-12 bg-gray-50">
+      <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-12"
         >
-          <div className="tag mb-6 inline-flex">
-            <HelpCircle className="w-4 h-4" />
-            Got Questions?
-          </div>
-          <h2 className="text-display-3 font-bold mb-6">
-            Frequently Asked <span className="gradient-text">Questions</span>
+          <h2 className="text-3xl md:text-4xl font-semibold mb-4 text-gray-900">
+            Frequently Asked Questions
           </h2>
-          <p className="text-lg text-white/60">
-            Everything you need to know about VTO Studio. Can't find the answer?
-            <a href="#contact" className="text-violet-400 hover:text-violet-300 ml-1">Contact us</a>.
+          <p className="text-lg text-gray-600">
+            Everything you need to know about VTO Studio.
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          {FAQS.map((category, catIndex) => (
+        <div className="max-w-3xl mx-auto">
+          {FAQS.map((faq, index) => (
             <motion.div
-              key={category.category}
+              key={faq.question}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: catIndex * 0.1 }}
-              className="mb-8"
+              transition={{ delay: index * 0.05 }}
+              className="mb-3"
             >
-              <h3 className="text-sm font-bold text-white/40 uppercase tracking-wider mb-4">
-                {category.category}
-              </h3>
+              <motion.div
+                className={`bg-white rounded-xl border overflow-hidden transition-colors ${openIndex === index ? 'border-blue-200 shadow-md' : 'border-gray-200'
+                  }`}
+                whileHover={{ scale: openIndex === index ? 1 : 1.01 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                <button
+                  onClick={() => toggleItem(index)}
+                  className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors"
+                >
+                  <span className={`font-medium pr-4 transition-colors ${openIndex === index ? 'text-blue-600' : 'text-gray-900'
+                    }`}>
+                    {faq.question}
+                  </span>
+                  <motion.div
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${openIndex === index ? 'bg-blue-100' : 'bg-gray-100'
+                      }`}
+                    animate={{ rotate: openIndex === index ? 180 : 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <AnimatePresence mode="wait">
+                      {openIndex === index ? (
+                        <motion.div
+                          key="minus"
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          exit={{ scale: 0, rotate: 180 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <Minus className="w-4 h-4 text-blue-600" />
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="plus"
+                          initial={{ scale: 0, rotate: 180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          exit={{ scale: 0, rotate: -180 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <Plus className="w-4 h-4 text-gray-500" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                </button>
 
-              <div className="space-y-3">
-                {category.questions.map((faq, qIndex) => {
-                  const itemId = `${category.category}-${qIndex}`;
-                  const isOpen = openItems.includes(itemId);
-
-                  return (
-                    <div
-                      key={qIndex}
-                      className="card overflow-hidden"
+                <AnimatePresence>
+                  {openIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{
+                        height: { type: "spring", stiffness: 300, damping: 30 },
+                        opacity: { duration: 0.2 }
+                      }}
                     >
-                      <button
-                        onClick={() => toggleItem(itemId)}
-                        className="w-full flex items-center justify-between p-5 text-left hover:bg-white/[0.02] transition-colors"
+                      <motion.div
+                        className="px-5 pb-5 text-gray-600 leading-relaxed"
+                        initial={{ y: -10 }}
+                        animate={{ y: 0 }}
+                        transition={{ delay: 0.1 }}
                       >
-                        <span className="font-semibold pr-4">{faq.question}</span>
-                        <div className={`w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0 transition-colors ${isOpen ? 'bg-violet-500/20' : ''}`}>
-                          {isOpen ? (
-                            <Minus className="w-4 h-4 text-violet-400" />
-                          ) : (
-                            <Plus className="w-4 h-4 text-white/40" />
-                          )}
-                        </div>
-                      </button>
-
-                      <AnimatePresence>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <div className="px-5 pb-5 text-white/60 leading-relaxed">
-                              {faq.answer}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                })}
-              </div>
+                        {faq.answer}
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </motion.div>
           ))}
         </div>
+
+        {/* Contact CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mt-10"
+        >
+          <p className="text-gray-600">
+            Still have questions?{' '}
+            <motion.a
+              href="mailto:support@vtostudio.com"
+              className="text-blue-500 hover:text-blue-600 font-medium"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Contact our support team
+            </motion.a>
+          </p>
+        </motion.div>
       </div>
     </section>
   );

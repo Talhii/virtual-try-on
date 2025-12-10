@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
 const EXAMPLES = [
@@ -46,7 +46,7 @@ const EXAMPLES = [
 
 export default function ComparisonShowcase() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showBefore, setShowBefore] = useState(false);
+  const [_showBefore, setShowBefore] = useState(false);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % EXAMPLES.length);
@@ -157,7 +157,7 @@ export default function ComparisonShowcase() {
                 {/* Prompt Used */}
                 <div className="p-4 rounded-xl bg-canvas/50 border border-white/5">
                   <span className="text-xs text-white/40 uppercase tracking-wider block mb-2">Prompt Used</span>
-                  <p className="text-sm text-white/80 italic">"{current.prompt}"</p>
+                  <p className="text-sm text-white/80 italic">&ldquo;{current.prompt}&rdquo;</p>
                 </div>
               </div>
 
@@ -202,8 +202,8 @@ export default function ComparisonShowcase() {
               key={example.id}
               onClick={() => setCurrentIndex(i)}
               className={`relative w-20 h-12 rounded-lg overflow-hidden transition-all duration-300 ${i === currentIndex
-                  ? 'ring-2 ring-violet-500 ring-offset-2 ring-offset-canvas scale-110'
-                  : 'opacity-50 hover:opacity-80'
+                ? 'ring-2 ring-violet-500 ring-offset-2 ring-offset-canvas scale-110'
+                : 'opacity-50 hover:opacity-80'
                 }`}
             >
               <Image src={example.result} alt={example.title} fill className="object-cover" />

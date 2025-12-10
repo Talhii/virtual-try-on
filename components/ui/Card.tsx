@@ -12,7 +12,7 @@ export function Card({
     variant = 'default',
     hover = true,
     ...props
-}: CardProps) {
+}: Readonly<CardProps>) {
     const variants = {
         default:
             'bg-canvas-subtle/50 border border-white/5 backdrop-blur-sm',
@@ -35,38 +35,37 @@ export function Card({
     );
 }
 
-interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> { }
+type CardHeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function CardHeader({ className, ...props }: CardHeaderProps) {
+export function CardHeader({ className, ...props }: Readonly<CardHeaderProps>) {
     return <div className={cn('mb-4', className)} {...props} />;
 }
 
-interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> { }
+type CardTitleProps = React.HTMLAttributes<HTMLHeadingElement>;
 
-export function CardTitle({ className, ...props }: CardTitleProps) {
+export function CardTitle({ className, children, ...props }: Readonly<CardTitleProps>) {
     return (
-        <h3 className={cn('text-xl font-bold', className)} {...props} />
+        <h3 className={cn('text-xl font-bold', className)} {...props}>{children}</h3>
     );
 }
 
-interface CardDescriptionProps
-    extends React.HTMLAttributes<HTMLParagraphElement> { }
+type CardDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 
-export function CardDescription({ className, ...props }: CardDescriptionProps) {
+export function CardDescription({ className, ...props }: Readonly<CardDescriptionProps>) {
     return (
         <p className={cn('text-white/60 text-sm', className)} {...props} />
     );
 }
 
-interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> { }
+type CardContentProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function CardContent({ className, ...props }: CardContentProps) {
+export function CardContent({ className, ...props }: Readonly<CardContentProps>) {
     return <div className={cn('', className)} {...props} />;
 }
 
-interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> { }
+type CardFooterProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function CardFooter({ className, ...props }: CardFooterProps) {
+export function CardFooter({ className, ...props }: Readonly<CardFooterProps>) {
     return (
         <div
             className={cn('mt-4 pt-4 border-t border-white/5', className)}
@@ -74,3 +73,4 @@ export function CardFooter({ className, ...props }: CardFooterProps) {
         />
     );
 }
+

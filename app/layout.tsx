@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
-import './globals.css';
+import { AuthProvider, TranslationProvider } from '@/providers';
+import '@/styles/globals.css';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -32,9 +33,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className='dark'>
+    <html lang='en' suppressHydrationWarning>
       <body className={`${outfit.variable} font-sans antialiased`}>
-        {children}
+        <TranslationProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </TranslationProvider>
       </body>
     </html>
   );

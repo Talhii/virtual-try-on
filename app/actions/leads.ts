@@ -1,6 +1,6 @@
 'use server';
 
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient } from '@/services/supabase/server';
 import { leadSchema } from '@/lib/validations';
 import type { FormState } from '@/types';
 
@@ -16,8 +16,14 @@ export async function submitLead(
     });
 
     if (!validatedFields.success) {
+        const errors: Record<string, string[]> = {};
+        for (const issue of validatedFields.error.issues) {
+            const path = String(issue.path[0]);
+            if (!errors[path]) errors[path] = [];
+            errors[path].push(issue.message);
+        }
         return {
-            errors: validatedFields.error.flatten().fieldErrors,
+            errors,
             message: 'Please fix the errors below.',
             success: false,
         };

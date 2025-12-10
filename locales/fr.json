@@ -1,0 +1,114 @@
+{
+    "common": {
+        "login": "Connexion",
+        "signup": "S'inscrire",
+        "logout": "Déconnexion",
+        "home": "Accueil",
+        "dashboard": "Tableau de Bord",
+        "pricing": "Tarifs",
+        "explore": "Explorer",
+        "imageToVideo": "Image en Vidéo",
+        "history": "Historique",
+        "getStarted": "Commencer",
+        "learnMore": "En Savoir Plus",
+        "contactUs": "Nous Contacter"
+    },
+    "navbar": {
+        "brand": "VTO Studio"
+    },
+    "hero": {
+        "badge": "Propulsé par une Technologie IA Avancée",
+        "title": "Essayage Virtuel IA",
+        "titleHighlight": "Studio",
+        "subtitle": "Essayez des vêtements, chaussures, bijoux et accessoires instantanément. Téléchargez votre photo et n'importe quel article pour vous voir le porter en quelques secondes.",
+        "cta": "Commencer à Créer",
+        "watchDemo": "Voir la Démo"
+    },
+    "pricing": {
+        "title": "Tarification Simple et Transparente",
+        "subtitle": "Commencez gratuitement, mettez à niveau quand vous êtes prêt. Pas de frais cachés, annulez à tout moment.",
+        "monthly": "Mensuel",
+        "yearly": "Annuel",
+        "discount": "-20%",
+        "perMonth": "/mois",
+        "mostPopular": "Plus Populaire",
+        "contactSales": "Contacter les Ventes",
+        "needMore": "Besoin de plus?",
+        "customPricing": "Contactez-nous pour des tarifs entreprise personnalisés",
+        "plans": {
+            "free": {
+                "name": "Gratuit",
+                "description": "Parfait pour essayer VTO Studio",
+                "credits": "10 essais gratuits",
+                "cta": "Commencer Gratuitement"
+            },
+            "pro": {
+                "name": "Pro",
+                "description": "Pour les créateurs et petites entreprises",
+                "credits": "200 crédits/mois",
+                "cta": "Obtenir Pro"
+            },
+            "business": {
+                "name": "Business",
+                "description": "Pour les équipes et marques en croissance",
+                "credits": "1 000 crédits/mois",
+                "cta": "Obtenir Business"
+            }
+        },
+        "features": {
+            "tryOnCredits": "Crédits d'Essayage",
+            "standardResolution": "Résolution Standard",
+            "basicSupport": "Support Basique",
+            "personalUse": "Usage Personnel Uniquement",
+            "highResolution": "Haute Résolution (4K)",
+            "priorityProcessing": "Traitement Prioritaire",
+            "commercialLicense": "Licence Commerciale",
+            "noWatermarks": "Sans Filigrane",
+            "emailSupport": "Support par Email",
+            "ultraHD": "Résolution Ultra HD",
+            "apiAccess": "Accès API",
+            "batchProcessing": "Traitement par Lots",
+            "teamCollab": "Collaboration d'Équipe",
+            "prioritySupport": "Support Prioritaire",
+            "analytics": "Tableau de Bord Analytique"
+        }
+    },
+    "contact": {
+        "tag": "Contactez-nous",
+        "title": "Prêt à",
+        "titleHighlight": "Transformer",
+        "titleEnd": "Votre Business Mode?",
+        "subtitle": "Que vous soyez une petite boutique ou un grand détaillant, nous serions ravis de vous entendre. Obtenez une démo personnalisée ou discutez de solutions sur mesure.",
+        "benefits": {
+            "demo": "Démo personnalisée gratuite",
+            "pricing": "Prix adaptés à vos besoins",
+            "support": "Support d'intégration technique",
+            "response": "Réponse sous 24 heures"
+        },
+        "form": {
+            "title": "Envoyez-nous un message",
+            "fullName": "Nom Complet",
+            "email": "Adresse Email",
+            "message": "Message",
+            "messagePlaceholder": "Parlez-nous de votre projet ou posez-nous vos questions...",
+            "submit": "Envoyer le Message",
+            "sending": "Envoi en cours..."
+        }
+    },
+    "testimonials": {
+        "tag": "Approuvé par plus de 500 Marques",
+        "title": "Adoré par les",
+        "titleHighlight": "Leaders de la Mode",
+        "subtitle": "Découvrez ce que disent les professionnels de l'industrie sur VTO Studio."
+    },
+    "language": {
+        "english": "English",
+        "spanish": "Español",
+        "french": "Français",
+        "german": "Deutsch",
+        "chinese": "中文",
+        "japanese": "日本語",
+        "korean": "한국어",
+        "arabic": "العربية"
+    }
+}

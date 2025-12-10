@@ -1,0 +1,114 @@
+{
+    "common": {
+        "login": "Iniciar Sesión",
+        "signup": "Registrarse",
+        "logout": "Cerrar Sesión",
+        "home": "Inicio",
+        "dashboard": "Panel",
+        "pricing": "Precios",
+        "explore": "Explorar",
+        "imageToVideo": "Imagen a Video",
+        "history": "Historial",
+        "getStarted": "Comenzar",
+        "learnMore": "Más Información",
+        "contactUs": "Contáctenos"
+    },
+    "navbar": {
+        "brand": "VTO Studio"
+    },
+    "hero": {
+        "badge": "Impulsado por Tecnología IA Avanzada",
+        "title": "Probador Virtual IA",
+        "titleHighlight": "Studio",
+        "subtitle": "Prueba ropa, zapatos, joyería y accesorios al instante. Sube tu foto y cualquier artículo para verte usándolo en segundos.",
+        "cta": "Comenzar a Crear",
+        "watchDemo": "Ver Demo"
+    },
+    "pricing": {
+        "title": "Precios Simples y Transparentes",
+        "subtitle": "Comienza gratis, actualiza cuando estés listo. Sin tarifas ocultas, cancela cuando quieras.",
+        "monthly": "Mensual",
+        "yearly": "Anual",
+        "discount": "-20%",
+        "perMonth": "/mes",
+        "mostPopular": "Más Popular",
+        "contactSales": "Contactar Ventas",
+        "needMore": "¿Necesitas más?",
+        "customPricing": "Contáctenos para precios empresariales personalizados",
+        "plans": {
+            "free": {
+                "name": "Gratis",
+                "description": "Perfecto para probar VTO Studio",
+                "credits": "10 pruebas gratis",
+                "cta": "Empezar Gratis"
+            },
+            "pro": {
+                "name": "Pro",
+                "description": "Para creadores y pequeños negocios",
+                "credits": "200 créditos/mes",
+                "cta": "Obtener Pro"
+            },
+            "business": {
+                "name": "Negocio",
+                "description": "Para equipos y marcas en crecimiento",
+                "credits": "1,000 créditos/mes",
+                "cta": "Obtener Negocio"
+            }
+        },
+        "features": {
+            "tryOnCredits": "Créditos de Prueba",
+            "standardResolution": "Resolución Estándar",
+            "basicSupport": "Soporte Básico",
+            "personalUse": "Solo Uso Personal",
+            "highResolution": "Alta Resolución (4K)",
+            "priorityProcessing": "Procesamiento Prioritario",
+            "commercialLicense": "Licencia Comercial",
+            "noWatermarks": "Sin Marcas de Agua",
+            "emailSupport": "Soporte por Email",
+            "ultraHD": "Resolución Ultra HD",
+            "apiAccess": "Acceso API",
+            "batchProcessing": "Procesamiento por Lotes",
+            "teamCollab": "Colaboración en Equipo",
+            "prioritySupport": "Soporte Prioritario",
+            "analytics": "Panel de Analíticas"
+        }
+    },
+    "contact": {
+        "tag": "Contáctanos",
+        "title": "¿Listo para",
+        "titleHighlight": "Transformar",
+        "titleEnd": "Tu Negocio de Moda?",
+        "subtitle": "Ya seas una pequeña boutique o un minorista empresarial, nos encantaría saber de ti. Obtén una demo personalizada o discute soluciones personalizadas.",
+        "benefits": {
+            "demo": "Demo personalizada gratuita",
+            "pricing": "Precios personalizados",
+            "support": "Soporte de integración técnica",
+            "response": "Respuesta en 24 horas"
+        },
+        "form": {
+            "title": "Envíanos un mensaje",
+            "fullName": "Nombre Completo",
+            "email": "Correo Electrónico",
+            "message": "Mensaje",
+            "messagePlaceholder": "Cuéntanos sobre tu proyecto o pregúntanos lo que quieras...",
+            "submit": "Enviar Mensaje",
+            "sending": "Enviando..."
+        }
+    },
+    "testimonials": {
+        "tag": "Confiado por más de 500 Marcas",
+        "title": "Amado por",
+        "titleHighlight": "Líderes de la Moda",
+        "subtitle": "Mira lo que dicen los profesionales de la industria sobre VTO Studio."
+    },
+    "language": {
+        "english": "English",
+        "spanish": "Español",
+        "french": "Français",
+        "german": "Deutsch",
+        "chinese": "中文",
+        "japanese": "日本語",
+        "korean": "한국어",
+        "arabic": "العربية"
+    }
+}

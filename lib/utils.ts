@@ -61,7 +61,7 @@ export function getInitials(name: string): string {
 
 // Check if running on client
 export function isClient(): boolean {
-    return typeof window !== 'undefined';
+    return globalThis.window !== undefined;
 }
 
 // Debounce function

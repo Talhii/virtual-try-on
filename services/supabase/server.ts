@@ -10,14 +10,12 @@ export const createServerClient = (): SupabaseClient | null => {
         return null;
     }
 
-    if (!supabaseClient) {
-        supabaseClient = createClient(supabaseUrl, supabaseServiceKey, {
-            auth: {
-                persistSession: false,
-                autoRefreshToken: false,
-            },
-        });
-    }
+    supabaseClient ??= createClient(supabaseUrl, supabaseServiceKey, {
+        auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+        },
+    });
 
     return supabaseClient;
 };

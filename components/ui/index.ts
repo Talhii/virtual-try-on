@@ -1,4 +1,4 @@
-// Export all UI components
+// Export all UI components - reusable primitives
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
 
@@ -13,7 +13,7 @@ export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 export { Badge, Tag } from './Badge';
 
 export { default as MagneticButton } from './MagneticButton';
+export { default as AnimatedCounter } from './AnimatedCounter';
+export { default as ScrollProgress } from './ScrollProgress';
 
-// Re-export Navbar and Footer
-export { default as Navbar } from './Navbar';
-export { default as Footer } from './Footer';
+// Note: Navbar and Footer are now in components/layout

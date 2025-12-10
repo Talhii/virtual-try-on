@@ -1,16 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-
-const brands = [
-    { name: 'Vogue', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Vogue_logo.svg' },
-    { name: 'Nike', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg' },
-    { name: 'Zara', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Zara_Logo.svg' },
-    { name: 'H&M', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg' },
-    { name: 'Gucci', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/79/1960s_Gucci_Logo.svg' },
-    { name: 'Prada', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Prada-Logo.svg' },
-];
 
 export default function BrandLogos() {
     return (
@@ -40,9 +30,9 @@ export default function BrandLogos() {
                         className="flex gap-16 items-center justify-center flex-wrap"
                     >
                         {/* Placeholder brand names since external SVGs might not load */}
-                        {['VOGUE', 'NIKE', 'ZARA', 'H&M', 'GUCCI', 'PRADA', 'DIOR', 'CHANEL'].map((brand, i) => (
+                        {['VOGUE', 'NIKE', 'ZARA', 'H&M', 'GUCCI', 'PRADA', 'DIOR', 'CHANEL'].map((brand) => (
                             <div
-                                key={i}
+                                key={brand}
                                 className="text-2xl font-bold text-white/20 hover:text-white/40 transition-colors cursor-pointer"
                                 style={{ fontFamily: 'serif', letterSpacing: '0.2em' }}
                             >

@@ -58,10 +58,11 @@ export const navConfig = {
 
 // Feature flags and settings
 export const featureFlags = {
-    enableAuth: false, // Set to true when auth is implemented
-    enableRealTryOn: false, // Set to true when API is connected
+    enableAuth: true, // Authentication is now implemented
+    enableRealTryOn: Boolean(process.env.REPLICATE_API_TOKEN), // Auto-enable if API key present
     enableAnalytics: true,
     maintenanceMode: false,
+    enableBilling: Boolean(process.env.STRIPE_SECRET_KEY), // Auto-enable if Stripe configured
 };
 
 // API configuration

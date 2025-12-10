@@ -1,0 +1,114 @@
+{
+    "common": {
+        "login": "Anmelden",
+        "signup": "Registrieren",
+        "logout": "Abmelden",
+        "home": "Startseite",
+        "dashboard": "Dashboard",
+        "pricing": "Preise",
+        "explore": "Erkunden",
+        "imageToVideo": "Bild zu Video",
+        "history": "Verlauf",
+        "getStarted": "Loslegen",
+        "learnMore": "Mehr Erfahren",
+        "contactUs": "Kontakt"
+    },
+    "navbar": {
+        "brand": "VTO Studio"
+    },
+    "hero": {
+        "badge": "Angetrieben von Fortschrittlicher KI-Technologie",
+        "title": "KI Virtuelle Anprobe",
+        "titleHighlight": "Studio",
+        "subtitle": "Probieren Sie Kleidung, Schuhe, Schmuck & Accessoires sofort an. Laden Sie Ihr Foto und jeden Artikel hoch, um sich in Sekunden darin zu sehen.",
+        "cta": "Jetzt Erstellen",
+        "watchDemo": "Demo Ansehen"
+    },
+    "pricing": {
+        "title": "Einfache, Transparente Preise",
+        "subtitle": "Starten Sie kostenlos, upgraden Sie wenn Sie bereit sind. Keine versteckten Gebühren, jederzeit kündbar.",
+        "monthly": "Monatlich",
+        "yearly": "Jährlich",
+        "discount": "-20%",
+        "perMonth": "/Monat",
+        "mostPopular": "Beliebteste",
+        "contactSales": "Vertrieb Kontaktieren",
+        "needMore": "Mehr benötigt?",
+        "customPricing": "Kontaktieren Sie uns für individuelle Unternehmenspreise",
+        "plans": {
+            "free": {
+                "name": "Kostenlos",
+                "description": "Perfekt zum Ausprobieren von VTO Studio",
+                "credits": "10 kostenlose Anproben",
+                "cta": "Kostenlos Starten"
+            },
+            "pro": {
+                "name": "Pro",
+                "description": "Für Kreative und kleine Unternehmen",
+                "credits": "200 Credits/Monat",
+                "cta": "Pro Holen"
+            },
+            "business": {
+                "name": "Business",
+                "description": "Für Teams und wachsende Marken",
+                "credits": "1.000 Credits/Monat",
+                "cta": "Business Holen"
+            }
+        },
+        "features": {
+            "tryOnCredits": "Anprobe-Credits",
+            "standardResolution": "Standard Auflösung",
+            "basicSupport": "Basis Support",
+            "personalUse": "Nur Persönliche Nutzung",
+            "highResolution": "Hohe Auflösung (4K)",
+            "priorityProcessing": "Prioritätsverarbeitung",
+            "commercialLicense": "Kommerzielle Lizenz",
+            "noWatermarks": "Keine Wasserzeichen",
+            "emailSupport": "E-Mail Support",
+            "ultraHD": "Ultra HD Auflösung",
+            "apiAccess": "API-Zugang",
+            "batchProcessing": "Stapelverarbeitung",
+            "teamCollab": "Team-Zusammenarbeit",
+            "prioritySupport": "Prioritäts-Support",
+            "analytics": "Analyse-Dashboard"
+        }
+    },
+    "contact": {
+        "tag": "Kontaktieren Sie Uns",
+        "title": "Bereit Ihr",
+        "titleHighlight": "Mode-Geschäft",
+        "titleEnd": "zu Transformieren?",
+        "subtitle": "Ob kleine Boutique oder Großhändler, wir würden gerne von Ihnen hören. Erhalten Sie eine personalisierte Demo oder besprechen Sie maßgeschneiderte Lösungen.",
+        "benefits": {
+            "demo": "Kostenlose personalisierte Demo",
+            "pricing": "Individuelle Preisgestaltung",
+            "support": "Technische Integrations-Unterstützung",
+            "response": "Antwort innerhalb von 24 Stunden"
+        },
+        "form": {
+            "title": "Senden Sie uns eine Nachricht",
+            "fullName": "Vollständiger Name",
+            "email": "E-Mail-Adresse",
+            "message": "Nachricht",
+            "messagePlaceholder": "Erzählen Sie uns von Ihrem Projekt oder stellen Sie uns Fragen...",
+            "submit": "Nachricht Senden",
+            "sending": "Wird gesendet..."
+        }
+    },
+    "testimonials": {
+        "tag": "Vertraut von über 500 Marken",
+        "title": "Geliebt von",
+        "titleHighlight": "Mode-Führern",
+        "subtitle": "Sehen Sie, was Branchenprofis über VTO Studio sagen."
+    },
+    "language": {
+        "english": "English",
+        "spanish": "Español",
+        "french": "Français",
+        "german": "Deutsch",
+        "chinese": "中文",
+        "japanese": "日本語",
+        "korean": "한국어",
+        "arabic": "العربية"
+    }
+}

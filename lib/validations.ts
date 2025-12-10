@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+// Email regex pattern for validation
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// URL regex pattern for validation
+const urlRegex = /^https?:\/\/.+/;
+
 // Lead/Contact form schema
 export const leadSchema = z.object({
     fullName: z
@@ -9,7 +14,7 @@ export const leadSchema = z.object({
     email: z
         .string()
         .min(1, 'Email is required')
-        .email('Invalid email address'),
+        .regex(emailRegex, 'Invalid email address'),
     message: z
         .string()
         .min(1, 'Message is required')
@@ -20,8 +25,8 @@ export type LeadFormData = z.infer<typeof leadSchema>;
 
 // Try-on request schema
 export const tryOnSchema = z.object({
-    modelImageUrl: z.string().url('Invalid model image URL'),
-    garmentImageUrl: z.string().url('Invalid garment image URL'),
+    modelImageUrl: z.string().regex(urlRegex, 'Invalid model image URL'),
+    garmentImageUrl: z.string().regex(urlRegex, 'Invalid garment image URL'),
     settings: z.object({
         preserveIdentity: z.boolean().default(true),
         highResolution: z.boolean().default(false),
@@ -36,13 +41,13 @@ export const signupSchema = z.object({
     email: z
         .string()
         .min(1, 'Email is required')
-        .email('Invalid email address'),
+        .regex(emailRegex, 'Invalid email address'),
     password: z
         .string()
         .min(8, 'Password must be at least 8 characters')
         .regex(/[a-z]/, 'Password must contain a lowercase letter')
         .regex(/[A-Z]/, 'Password must contain an uppercase letter')
-        .regex(/[0-9]/, 'Password must contain a number'),
+        .regex(/\d/, 'Password must contain a number'),
     confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
@@ -56,7 +61,7 @@ export const loginSchema = z.object({
     email: z
         .string()
         .min(1, 'Email is required')
-        .email('Invalid email address'),
+        .regex(emailRegex, 'Invalid email address'),
     password: z
         .string()
         .min(1, 'Password is required'),

@@ -61,6 +61,38 @@ export interface Database {
                     created_at?: string;
                 };
             };
+            user_profiles: {
+                Row: {
+                    id: string;
+                    full_name: string | null;
+                    avatar_url: string | null;
+                    plan: string | null;
+                    credits_remaining: number | null;
+                    credits_used_total: number | null;
+                    created_at: string;
+                    updated_at: string;
+                };
+                Insert: {
+                    id: string;
+                    full_name?: string | null;
+                    avatar_url?: string | null;
+                    plan?: string | null;
+                    credits_remaining?: number | null;
+                    credits_used_total?: number | null;
+                    created_at?: string;
+                    updated_at?: string;
+                };
+                Update: {
+                    id?: string;
+                    full_name?: string | null;
+                    avatar_url?: string | null;
+                    plan?: string | null;
+                    credits_remaining?: number | null;
+                    credits_used_total?: number | null;
+                    created_at?: string;
+                    updated_at?: string;
+                };
+            };
             try_on_results: {
                 Row: {
                     id: string;
