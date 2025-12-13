@@ -2,12 +2,12 @@ import { createServerClient } from '@/services/supabase/server';
 import { NextResponse, type NextRequest } from 'next/server';
 
 // Routes that require authentication
-const protectedRoutes = ['/dashboard', '/try-on', '/history', '/settings'];
+const protectedRoutes = ['/try-on', '/history', '/settings'];
 
 // Routes that should redirect to dashboard if already authenticated
 const authRoutes = ['/login', '/signup', '/forgot-password'];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Skip middleware for static files, api routes, and auth callbacks

@@ -45,6 +45,7 @@ export interface AuthContextType {
 
 interface AuthProviderProps {
     readonly children: ReactNode;
+    readonly initialSession?: Session | null;
 }
 
 interface ProfileRow {
@@ -65,12 +66,20 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 // PROVIDER
 // ============================================
 
-export function AuthProvider({ children }: AuthProviderProps) {
-    const [user, setUser] = useState<User | null>(null);
+export function AuthProvider({ children, initialSession = null }: AuthProviderProps) {
+    const [user, setUser] = useState<User | null>(initialSession?.user ?? null);
     const [profile, setProfile] = useState<UserProfile | null>(null);
-    const [session, setSession] = useState<Session | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [session, setSession] = useState<Session | null>(initialSession);
+    const [isLoading, setIsLoading] = useState(!initialSession);
     const [error, setError] = useState<Error | null>(null);
+
+    // Sync state with server session prop when it updates (e.g. after router.refresh)
+    useEffect(() => {
+        if (initialSession !== undefined) {
+            setSession(initialSession);
+            setUser(initialSession?.user ?? null);
+        }
+    }, [initialSession]);
 
     // Use ref to track latest fetch request and prevent race conditions
     const fetchIdRef = useRef(0);
@@ -147,13 +156,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const initializeAuth = async () => {
             try {
                 setError(null);
-                const { data: { session: initialSession } } = await supabase.auth.getSession();
 
-                setSession(initialSession);
-                setUser(initialSession?.user ?? null);
+                // If we have initial session, we use it but still verify/refresh
+                // If not, we check for client-side storage
+                const { data: { session: currentSession } } = await supabase.auth.getSession();
 
-                if (initialSession?.user) {
-                    await fetchProfile(initialSession.user.id, initialSession.user.email);
+                // If currentSession is null (no local storage), fallback to initialSession (cookies)
+                // Note: getSession() usually returns what browserClient has.
+                // If browserClient is empty, we set session from initialSession?
+                // Actually if initialSession exists (server), we trust it?
+                // But browserClient needs to know about it for future calls if any.
+
+                const finalSession = currentSession ?? initialSession;
+
+                setSession(finalSession);
+                setUser(finalSession?.user ?? null);
+
+                if (finalSession?.user) {
+                    await fetchProfile(finalSession.user.id, finalSession.user.email);
                 }
             } catch (err) {
                 const errorMessage = err instanceof Error ? err : new Error('Auth initialization failed');

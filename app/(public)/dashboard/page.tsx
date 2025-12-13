@@ -7,6 +7,7 @@ import DashboardSidebar from './_components/DashboardSidebar';
 import GalleryTab from './_components/GalleryTab';
 import UploadTab from './_components/UploadTab';
 import InfoTab from './_components/InfoTab';
+import type { TryOnResult } from '@/types';
 
 const tabs = [
   { id: 'gallery', label: 'My gallery' },
@@ -23,6 +24,13 @@ export default function DashboardPage() {
   const [modelImage, setModelImage] = React.useState<string | null>(null);
   const [itemImage, setItemImage] = React.useState<string | null>(null);
   const [item2Image, setItem2Image] = React.useState<string | null>(null);
+  const [latestResult, setLatestResult] = React.useState<TryOnResult | null>(null);
+
+  const handleTryOnResult = (result: TryOnResult) => {
+    setLatestResult(result);
+    // Switch to gallery tab to show the result
+    setActiveTab('gallery');
+  };
 
   return (
     <div className="min-h-screen bg-white text-gray-900 pt-20">
@@ -44,6 +52,7 @@ export default function DashboardPage() {
           setAdditionalInfo={setAdditionalInfo}
           selectedAiMode={selectedAiMode}
           setSelectedAiMode={setSelectedAiMode}
+          onTryOnResult={handleTryOnResult}
         />
 
         {/* Show sidebar toggle when sidebar is closed */}
@@ -82,7 +91,7 @@ export default function DashboardPage() {
 
           {/* Content Area */}
           <div className="flex-1 overflow-y-auto p-6">
-            {activeTab === 'gallery' && <GalleryTab />}
+            {activeTab === 'gallery' && <GalleryTab newResult={latestResult} />}
             {activeTab === 'upload' && <UploadTab />}
             {activeTab === 'info' && <InfoTab />}
           </div>
@@ -98,3 +107,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

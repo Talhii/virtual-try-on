@@ -3,14 +3,27 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, LogOut, User as UserIcon } from 'lucide-react';
 import LanguageSelector from '@/components/ui/LanguageSelector';
 import { useTranslation } from '@/providers/TranslationProvider';
+import { useAuth } from '@/hooks';
+import { authApi } from '@/services/api';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const { t } = useTranslation();
+    const { user } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+            await authApi.logout();
+            // Force reload to clear all states and ensure middleware sees empty cookies
+            globalThis.window.location.href = '/login';
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     const navLinks = [
         { name: t.common.home, href: '/' },
@@ -59,13 +72,30 @@ export default function Navbar() {
                     {/* Desktop CTA Buttons */}
                     <div className="hidden lg:flex items-center gap-4">
                         <LanguageSelector />
-                        <Link
-                            href="/login"
-                            className="bg-blue-600 text-white text-sm font-medium py-2 px-6 rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2"
-                        >
-                            {t.common.login}
-                            <ArrowRight className="w-4 h-4" />
-                        </Link>
+                        {user ? (
+                            <div className="flex items-center gap-3 pl-2">
+                                <Link
+                                    href="/dashboard"
+                                    className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 hover:bg-purple-200 transition-colors"
+                                >
+                                    <UserIcon className="w-4 h-4" />
+                                </Link>
+                                <button
+                                    onClick={handleLogout}
+                                    className="text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-2 cursor-pointer"
+                                >
+                                    Sign Out
+                                </button>
+                            </div>
+                        ) : (
+                            <Link
+                                href="/login"
+                                className="bg-blue-600 text-white text-sm font-medium py-2 px-6 rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2"
+                            >
+                                {t.common.login}
+                                <ArrowRight className="w-4 h-4" />
+                            </Link>
+                        )}
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -114,14 +144,27 @@ export default function Navbar() {
                                 <span className="text-sm font-medium text-gray-600">Language</span>
                                 <LanguageSelector variant="full" />
                             </div>
-                            <Link
-                                href="/login"
-                                onClick={() => setIsOpen(false)}
-                                className="bg-blue-600 text-white w-full py-3 rounded-full flex items-center justify-center gap-2 font-medium"
-                            >
-                                {t.common.login}
-                                <ArrowRight className="w-4 h-4" />
-                            </Link>
+                            {user ? (
+                                <button
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        handleLogout();
+                                    }}
+                                    className="bg-gray-100 text-gray-900 w-full py-3 rounded-full flex items-center justify-center gap-2 font-medium hover:bg-gray-200"
+                                >
+                                    <LogOut className="w-4 h-4" />
+                                    Sign Out
+                                </button>
+                            ) : (
+                                <Link
+                                    href="/login"
+                                    onClick={() => setIsOpen(false)}
+                                    className="bg-blue-600 text-white w-full py-3 rounded-full flex items-center justify-center gap-2 font-medium"
+                                >
+                                    {t.common.login}
+                                    <ArrowRight className="w-4 h-4" />
+                                </Link>
+                            )}
                         </div>
                     </motion.div>
                 )}

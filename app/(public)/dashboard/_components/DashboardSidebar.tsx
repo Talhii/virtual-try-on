@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-    User,
     Image as ImageIcon,
     Plus,
     ChevronDown,
@@ -14,7 +13,11 @@ import {
     Images,
     History,
     Menu,
+    Loader2,
+    User,
 } from 'lucide-react';
+import { uploadApi, tryonApi, type TryOnResult } from '@/services/api';
+import { useAuth } from '@/hooks';
 
 interface DashboardSidebarProps {
     sidebarOpen: boolean;
@@ -31,6 +34,7 @@ interface DashboardSidebarProps {
     setAdditionalInfo: (info: string) => void;
     selectedAiMode: string;
     setSelectedAiMode: (mode: string) => void;
+    onTryOnResult?: (result: TryOnResult) => void;
 }
 
 const aiModes = [
@@ -53,41 +57,148 @@ export default function DashboardSidebar({
     setAdditionalInfo,
     selectedAiMode,
     setSelectedAiMode,
+    onTryOnResult,
 }: DashboardSidebarProps) {
+    const { user } = useAuth() as { user: any };
     const [modeExpanded, setModeExpanded] = React.useState(false);
+    const [isUploading, setIsUploading] = React.useState<'model' | 'item' | 'item2' | null>(null);
+    const [isGenerating, setIsGenerating] = React.useState(false);
+    const [error, setError] = React.useState<string | null>(null);
 
-    const handleModelUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Store the uploaded URLs separately from display URLs
+    const [modelUploadUrl, setModelUploadUrl] = React.useState<string | null>(null);
+    const [itemUploadUrl, setItemUploadUrl] = React.useState<string | null>(null);
+
+    const handleModelUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setModelImage(event.target?.result as string);
-            };
-            reader.readAsDataURL(file);
+        if (!file) return;
+
+        setError(null);
+        setIsUploading('model');
+
+        // Show preview immediately
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            setModelImage(event.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+
+        // Upload to storage
+        try {
+            const result = await uploadApi.uploadModelImage(file);
+            if (result.success) {
+                setModelUploadUrl(result.url);
+                setModelImage(result.url);
+            }
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Failed to upload model image';
+            setError(message);
+        } finally {
+            setIsUploading(null);
         }
     };
 
-    const handleItemUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleItemUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setItemImage(event.target?.result as string);
-            };
-            reader.readAsDataURL(file);
+        if (!file) return;
+
+        setError(null);
+        setIsUploading('item');
+
+        // Show preview immediately
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            setItemImage(event.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+
+        // Upload to storage
+        try {
+            const result = await uploadApi.uploadGarmentImage(file);
+            if (result.success) {
+                setItemUploadUrl(result.url);
+                setItemImage(result.url);
+            }
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Failed to upload garment image';
+            setError(message);
+        } finally {
+            setIsUploading(null);
         }
     };
 
-    const handleItem2Upload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleItem2Upload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setItem2Image(event.target?.result as string);
-            };
-            reader.readAsDataURL(file);
+        if (!file) return;
+
+        setIsUploading('item2');
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            setItem2Image(event.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+
+        try {
+            const result = await uploadApi.uploadGarmentImage(file);
+            if (result.success) {
+                setItem2Image(result.url);
+            }
+        } catch {
+            // Silent fail for optional second item
+        } finally {
+            setIsUploading(null);
         }
     };
+
+    const handleGenerate = async () => {
+        const modelUrl = modelUploadUrl || modelImage;
+        const itemUrl = itemUploadUrl || itemImage;
+
+        if (!modelUrl || !itemUrl) return;
+
+        // Check if images are data URLs (local preview) - need actual URLs for AI processing
+        if (modelUrl.startsWith('data:') || itemUrl.startsWith('data:')) {
+            setError('Please wait for images to finish uploading before generating.');
+            return;
+        }
+
+        setError(null);
+        setIsGenerating(true);
+
+        try {
+            const result = await tryonApi.generate({
+                modelImageUrl: modelUrl,
+                garmentImageUrl: itemUrl,
+                settings: {
+                    preserveIdentity: true,
+                    highResolution: selectedAiMode === 'last-gen',
+                    creativity: 50,
+                },
+            });
+
+            if (result.success && result.result) {
+                onTryOnResult?.(result.result);
+            }
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Failed to generate try-on';
+            setError(message);
+        } finally {
+            setIsGenerating(false);
+        }
+    };
+
+    const handleClearModel = () => {
+        setModelImage(null);
+        setModelUploadUrl(null);
+    };
+
+    const handleClearItem = () => {
+        setItemImage(null);
+        setItemUploadUrl(null);
+    };
+
+    const isUploadsReady = modelImage && itemImage &&
+        !modelImage.startsWith('data:') && !itemImage.startsWith('data:');
 
     return (
         <AnimatePresence>
@@ -114,6 +225,13 @@ export default function DashboardSidebar({
                         </div>
 
                         <div className="p-4 space-y-6">
+                            {/* Error Message */}
+                            {error && (
+                                <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
+                                    {error}
+                                </div>
+                            )}
+
                             {/* Step 1: Choose Mode */}
                             <div className="space-y-3">
                                 <div className="flex items-center gap-2">
@@ -153,6 +271,9 @@ export default function DashboardSidebar({
                                         2
                                     </div>
                                     <span className="text-sm font-semibold text-gray-900">Upload Your Photo</span>
+                                    {isUploading === 'model' && (
+                                        <Loader2 className="w-4 h-4 animate-spin text-purple-600" />
+                                    )}
                                 </div>
                                 <div className={`relative border-2 border-dashed rounded-xl p-4 transition-all cursor-pointer group ${modelImage ? 'border-purple-400 bg-purple-50' : 'border-gray-200 hover:border-purple-400 hover:bg-purple-50/50'
                                     }`}>
@@ -162,15 +283,21 @@ export default function DashboardSidebar({
                                         accept="image/*"
                                         onChange={handleModelUpload}
                                         className="hidden"
+                                        disabled={isUploading === 'model'}
                                     />
                                     <label htmlFor="model-upload" className="cursor-pointer block">
                                         {modelImage ? (
                                             <div className="relative">
                                                 <div className="relative w-full h-32 rounded-lg overflow-hidden">
                                                     <Image src={modelImage} alt="Model" fill className="object-cover" unoptimized />
+                                                    {isUploading === 'model' && (
+                                                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                                            <Loader2 className="w-6 h-6 animate-spin text-white" />
+                                                        </div>
+                                                    )}
                                                 </div>
                                                 <button
-                                                    onClick={(e) => { e.preventDefault(); setModelImage(null); }}
+                                                    onClick={(e) => { e.preventDefault(); handleClearModel(); }}
                                                     className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
                                                 >
                                                     ✕
@@ -196,6 +323,9 @@ export default function DashboardSidebar({
                                         3
                                     </div>
                                     <span className="text-sm font-semibold text-gray-900">Upload Item to Try</span>
+                                    {isUploading === 'item' && (
+                                        <Loader2 className="w-4 h-4 animate-spin text-pink-600" />
+                                    )}
                                 </div>
                                 <div className={`relative border-2 border-dashed rounded-xl p-4 transition-all cursor-pointer group ${itemImage ? 'border-pink-400 bg-pink-50' : 'border-gray-200 hover:border-pink-400 hover:bg-pink-50/50'
                                     }`}>
@@ -205,15 +335,21 @@ export default function DashboardSidebar({
                                         accept="image/*"
                                         onChange={handleItemUpload}
                                         className="hidden"
+                                        disabled={isUploading === 'item'}
                                     />
                                     <label htmlFor="item-upload" className="cursor-pointer block">
                                         {itemImage ? (
                                             <div className="relative">
                                                 <div className="relative w-full h-32 rounded-lg overflow-hidden">
                                                     <Image src={itemImage} alt="Item" fill className="object-cover" unoptimized />
+                                                    {isUploading === 'item' && (
+                                                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                                            <Loader2 className="w-6 h-6 animate-spin text-white" />
+                                                        </div>
+                                                    )}
                                                 </div>
                                                 <button
-                                                    onClick={(e) => { e.preventDefault(); setItemImage(null); }}
+                                                    onClick={(e) => { e.preventDefault(); handleClearItem(); }}
                                                     className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
                                                 >
                                                     ✕
@@ -309,20 +445,41 @@ export default function DashboardSidebar({
 
                             {/* Generate Button */}
                             <button
-                                className={`w-full py-4 rounded-xl font-semibold text-white transition-all flex items-center justify-center gap-2 ${modelImage && itemImage
+                                onClick={handleGenerate}
+                                className={`w-full py-4 rounded-xl font-semibold text-white transition-all flex items-center justify-center gap-2 ${isUploadsReady && !isGenerating
                                     ? 'bg-gradient-to-r from-purple-600 to-pink-500 hover:shadow-lg hover:shadow-purple-200 hover:scale-[1.02]'
                                     : 'bg-gray-300 cursor-not-allowed'
                                     }`}
-                                disabled={!modelImage || !itemImage}
+                                disabled={!isUploadsReady || isGenerating}
                             >
-                                <Zap className="w-5 h-5" />
-                                Generate Try-On
+                                {isGenerating ? (
+                                    <>
+                                        <Loader2 className="w-5 h-5 animate-spin" />
+                                        Generating...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Zap className="w-5 h-5" />
+                                        Generate Try-On
+                                    </>
+                                )}
                             </button>
 
                             {/* Helper Text */}
                             {(!modelImage || !itemImage) && (
                                 <p className="text-center text-xs text-gray-500">
                                     Upload both a photo and an item to generate
+                                </p>
+                            )}
+                            {modelImage && itemImage && !isUploadsReady && (
+                                <p className="text-center text-xs text-purple-600">
+                                    <Loader2 className="w-3 h-3 inline animate-spin mr-1" />
+                                    Uploading images...
+                                </p>
+                            )}
+                            {!user && (
+                                <p className="text-center text-xs text-orange-500 mt-2">
+                                    Sign in specifically to save your results to history.
                                 </p>
                             )}
                         </div>
@@ -337,13 +494,15 @@ export default function DashboardSidebar({
                                     <Images className="w-4 h-4" />
                                     My Gallery
                                 </Link>
-                                <Link
-                                    href="/history"
-                                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all"
-                                >
-                                    <History className="w-4 h-4" />
-                                    Recent History
-                                </Link>
+                                {user && (
+                                    <Link
+                                        href="/history"
+                                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all"
+                                    >
+                                        <History className="w-4 h-4" />
+                                        Recent History
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     </div>

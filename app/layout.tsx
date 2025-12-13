@@ -27,16 +27,30 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+import { createServerClient } from '@/services/supabase/server';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createServerClient();
+  let initialSession = null;
+
+  if (supabase) {
+    try {
+      const { data } = await supabase.auth.getSession();
+      initialSession = data.session;
+    } catch (error) {
+      console.error('Error fetching session:', error);
+    }
+  }
+
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={`${outfit.variable} font-sans antialiased`}>
         <TranslationProvider>
-          <AuthProvider>
+          <AuthProvider initialSession={initialSession}>
             {children}
           </AuthProvider>
         </TranslationProvider>

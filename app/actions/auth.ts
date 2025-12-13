@@ -46,7 +46,7 @@ export async function signUp(
         email: validatedFields.data.email,
         password: validatedFields.data.password,
         options: {
-            emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+            emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/callback`,
         },
     });
 
@@ -134,7 +134,7 @@ export async function signInWithOAuth(provider: 'google' | 'github') {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-            redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+            redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/callback`,
         },
     });
 
