@@ -59,7 +59,7 @@ export const navConfig = {
 // Feature flags and settings
 export const featureFlags = {
     enableAuth: true, // Authentication is now implemented
-    enableRealTryOn: Boolean(process.env.REPLICATE_API_TOKEN), // Auto-enable if API key present
+    enableRealTryOn: Boolean(process.env.GEMINI_API_KEY), // Auto-enable if Gemini API key present
     enableAnalytics: true,
     maintenanceMode: false,
     enableBilling: Boolean(process.env.STRIPE_SECRET_KEY), // Auto-enable if Stripe configured
